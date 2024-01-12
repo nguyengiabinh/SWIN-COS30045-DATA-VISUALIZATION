@@ -1,0 +1,24 @@
+body {
+    max-width: 800px;
+    margin: auto;
+    min-width: 800px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+h1 {
+    font-weight: 1000;
+    color: mediumseagreen;
+
+}
+
+.img {
+    width: 600px;
+    height: 380px;
+    display: block;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: lightgrey;
+}

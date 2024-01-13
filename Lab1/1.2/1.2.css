@@ -1,0 +1,52 @@
+body {
+    max-width: 800px;
+    margin: auto;
+    min-width: 800px;
+    font-family: Arial, Helvetica, sans-serif;
+
+}
+
+h1 {
+    font-weight: 1000;
+    color: mediumseagreen;
+
+}
+
+.img {
+    width: 600px;
+    height: 350px;
+    display: block;
+    margin: 0 auto;
+}
+
+#image_caption {
+    font-style: italic;
+    width: 600px;
+    margin: 0 auto;
+}
+
+footer {
+    background-color: lightgrey;
+}
+
+#image2019 {
+    width: 100px;
+    height: 50px;
+    background: linear-gradient(to right, #7FFF00, #FF1493, #8A2BE2);
+
+}
+
+#image2021 {
+    width: 100px;
+    height: 50px;
+    background: linear-gradient(to right, #939597, #BF9000, #0047AB);
+
+}
+
+#image2019vs2021 {
+    width: 100px;
+    height: 50px;
+    background: linear-gradient(to right, #7FFF00, #0047AB);
+
+}
+

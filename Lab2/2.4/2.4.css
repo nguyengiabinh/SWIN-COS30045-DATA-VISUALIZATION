@@ -13,11 +13,11 @@ h1 {
 }
 
 .img {
-    width: 600px;
-    height: 380px;
+    /* width: 600px;
+    height: 380px; */
     display: block;
     margin: 0 auto;
-    background-color: darkolivegreen;
+    /* background-color: darkolivegreen; */
 }
 
 footer {

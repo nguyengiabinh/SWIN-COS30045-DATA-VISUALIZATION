@@ -19,61 +19,118 @@
 	<h2>Pet ownership of 2019</h2>
 
     <script>
-        var w = 600;
-        var h = 380;
-        var padding = 10;
+        // var w = 600;
+        // var h = 380;
+        // var padding = 10;
 
-        var dataset = [
-                        [5, 20],
-                        [480, 90],
-                        [250, 50],
-                        [100, 33],
-                        [330, 95],
-                        [410, 12],
-                        [475, 44],
-                        [25, 67],
-                        [85, 21],
-                        [220, 88]
-                      ]; 
+        // var dataset = [
+        //                 [5, 20],
+        //                 [480, 90],
+        //                 [250, 50],
+        //                 [100, 33],
+        //                 [330, 95],
+        //                 [410, 12],
+        //                 [475, 44],
+        //                 [25, 67],
+        //                 [85, 21],
+        //                 [220, 88]
+        //               ]; 
 
-        var svg = d3.select("body")
-                    .append("svg")
-                    .attr("width", w)
-                    .attr("height", h)
-                    .attr("class", "img");
+        // var svg = d3.select("body")
+        //             .append("svg")
+        //             .attr("width", w)
+        //             .attr("height", h)
+        //             .attr("class", "img");
 
-        svg.selectAll("circle")
-           .data(dataset)
-           .enter()
-           .append("circle")
-           .attr("cx", function(d, i) {
-            return d[0];
-           })
-           .attr("cy", function(d) {
-            return d[1];
-           })
-           .attr("r", 10)
-           .style("fill", function(d) {
-            if (d[0] == 410) {
-                return "red";
+        // svg.selectAll("circle")
+        //    .data(dataset)
+        //    .enter()
+        //    .append("circle")
+        //    .attr("cx", function(d, i) {
+        //     return d[0];
+        //    })
+        //    .attr("cy", function(d) {
+        //     return d[1];
+        //    })
+        //    .attr("r", 10)
+        //    .style("fill", function(d) {
+        //     if (d[0] == 410) {
+        //         return "red";
                 
-            } else {
-                return "LightCoral";
-            }
-           });
-        svg.selectAll("text")
-           .data(dataset)
-           .enter()
-           .append("text")
-           .attr("x", function(d) {
-            return d[0] - 33;
-           })
-           .attr("y", function(d) {
-            return d[1] + 20;
-           })
-           .text(function(d) {
-            return d[0] + " , " + d[1]; 
-           })
+        //     } else {
+        //         return "LightCoral";
+        //     }
+        //    });
+        // svg.selectAll("text")
+        //    .data(dataset)
+        //    .enter()
+        //    .append("text")
+        //    .attr("x", function(d) {
+        //     return d[0] - 33;
+        //    })
+        //    .attr("y", function(d) {
+        //     return d[1] + 20;
+        //    })
+        //    .text(function(d) {
+        //     return d[0] + " , " + d[1]; 
+        //    })
+
+var w = 600;
+var h = 380;
+var padding = 10;
+
+var dataset = [
+   [5, 20],
+   [480, 90],
+   [250, 50],
+   [100, 33],
+   [330, 95],
+   [410, 12],
+   [475, 44],
+   [25, 67],
+   [85, 21],
+   [220, 88]
+]; 
+
+var svg = d3.select("body")
+           .append("svg")
+           .attr("width", w)
+           .attr("height", h)
+           .attr("class", "img");
+
+svg.selectAll("rect")
+  .data(dataset)
+  .enter()
+  .append("rect")
+  .attr("x", function(d, i) {
+      return d[0];
+  })
+  .attr("y", function(d) {
+      return d[1];
+  })
+  .attr("width", 10)
+  .attr("height", 10)
+  .style("fill", function(d) {
+      if (d[0] == 410) {
+          return "red";
+      } else {
+          return "LightCoral";
+      }
+  });
+
+svg.selectAll("text")
+  .data(dataset)
+  .enter()
+  .append("text")
+  .attr("x", function(d) {
+      return d[0] - 33;
+  })
+  .attr("y", function(d) {
+      return d[1] + 20;
+  })
+  .text(function(d) {
+      return d[0] + " , " + d[1]; 
+  })
 
     </script>
 

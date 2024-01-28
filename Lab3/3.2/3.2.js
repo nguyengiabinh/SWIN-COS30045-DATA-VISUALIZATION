@@ -47,24 +47,27 @@ var yScale = d3.scaleLinear()
               })])
               .range([h - padding,padding]);
 
-//Create a bottom axis line
+//Create a x bottom axis line
 var xAxis = d3.axisBottom()
               .ticks(16)
               .scale(xScale);
 
+//Create a Left hand side y axis
 var yAxis = d3.axisLeft()
               .ticks(12)
               .scale(yScale);
 
+//X axis position
 svg.append("g")
    .attr("transform", "translate(0, " + (h - padding + 10) + ")")
    .call(xAxis);
 
+//Y axis position
 svg.append("g")
    .attr("transform", "translate("+ (padding - 10) +", 0)")
    .call(yAxis);
 
-//create the rect as datapoint with d3 scale deciding where it would be on the chart
+//create the rect as datapoint with d3 scale, deciding where it would be on the chart
 svg.selectAll("rect")
   .data(dataset)
   .enter()

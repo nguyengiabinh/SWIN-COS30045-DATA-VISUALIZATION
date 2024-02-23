@@ -239,18 +239,20 @@ function removeBars() {
 
 }
 
+
+//Sorting function
 var ascend = true;
 
 function sortBar() {
-    var sortOrder = ascend ? d3.ascending : d3.descending;
+    var sortOrder = ascend ? d3.ascending : d3.descending; //True = ascend and False = descend
 
     svg.selectAll("rect")
        .sort(sortOrder)
        .transition()
        .delay(function(d, i) {
-            return i * 150; // Adjust the delay as needed
+            return i * 150;
        })
-       .duration(800) // Set the duration of the transition (in milliseconds)
+       .duration(800)
        .attr("x", function(d, i) {
             return xScale(i) + xScale.bandwidth() * barPadding / 2;
        });

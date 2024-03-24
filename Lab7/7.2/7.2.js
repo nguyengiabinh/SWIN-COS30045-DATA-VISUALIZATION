@@ -11,7 +11,8 @@ for (var i = 0; i < 7; i++) {
 }
 
 // Color scale for the chart: the color is appointed randomly based on the length of the dataset
-var colorScale = d3.scaleOrdinal() // Use the length of the dataset as the domain
+var colorScale = d3.scaleOrdinal()
+    .domain(d3.range(dataset.length))  // Use the length of the dataset as the domain
     .range(d3.schemeCategory10);  // Use a categorical color scheme
 
 // Calculate the center of the pie chart
@@ -62,7 +63,7 @@ arcs.append("path")
             .attr("class", "hover-label")
             .attr("transform", "translate(" + centerX + "," + centerY + ")")
             .attr("text-anchor", "middle")
-            .text("Value: " + d.data + ", Color: " + colorScale(d.index));
+            .text("Value: " + d.data + ", Color: " + colorScale(i));
     })
     .on("mouseout", function () {
         d3.select(this).transition()
@@ -82,6 +83,7 @@ arcs.append("text")
     .text(function (d) {
         return d.value;
     });
+
 
 
 

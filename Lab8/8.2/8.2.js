@@ -65,17 +65,17 @@ d3.csv("VIC_LGA_unemployment.csv", function(d){
             }
         }).then(function(data){
             
-            // svg.selectAll("circle")
-            // .data(data)
-            // .enter()
-            // .append("circle")
-            // .attr("cx", function(d, i){
-            //     return projection([d.long, d.lat])[0];
-            // })
-            // .attr("cy", function(d, i){
-            //     return projection([d.long, d.lat])[1];
-            // })
-            // .attr("r", 5);
+            svg.selectAll("circle")
+            .data(data)
+            .enter()
+            .append("circle")
+            .attr("cx", function(d, i){
+                return projection([d.long, d.lat])[0];
+            })
+            .attr("cy", function(d, i){
+                return projection([d.long, d.lat])[1];
+            })
+            .attr("r", 5);
         
             svg.selectAll("text")
             .data(data)

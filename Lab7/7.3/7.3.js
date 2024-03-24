@@ -11,8 +11,9 @@ var dataset = [
     { apples: 23, oranges: 17, grapes: 43 }
 ]; 
 
+//initialize the data of the stacked bar
 var stack = d3.stack()
-              .keys(["apples", "oranges", "grapes"]);
+              .keys(["apples", "oranges", "grapes",]);
 
 var series = stack(dataset);
 

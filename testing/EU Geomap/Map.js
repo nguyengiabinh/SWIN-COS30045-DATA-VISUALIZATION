@@ -1,69 +1,69 @@
-var w = 1000;
-var h = 1000;
+// var w = 1000;
+// var h = 1000;
 
-// Define projection settings
-var projection = d3.geoMercator()
-    .center([0, 25]) // Centering the map
-    .scale(400) // Adjusting scale to make the map four times bigger
-    .translate([w / 3, h]);
+// // Define projection settings
+// var projection = d3.geoMercator()
+//     .center([0, 25]) // Centering the map
+//     .scale(400) // Adjusting scale to make the map four times bigger
+//     .translate([w / 3, h]);
 
-var path = d3.geoPath()
-    .projection(projection);
+// var path = d3.geoPath()
+//     .projection(projection);
 
-// Start the SVG block
-var svg = d3.select("body")
-    .append("svg")
-    .attr("width", w)
-    .attr("height", h)
-    .attr("class", "img");
+// // Start the SVG block
+// var svg = d3.select("body")
+//     .append("svg")
+//     .attr("width", w)
+//     .attr("height", h)
+//     .attr("class", "img");
 
 
-// Load CSV data asynchronously and process it before rendering the map
-d3.csv("refugee.csv", function(d){
-    return {
-        name: +d.Name,
-        Number: +d.Number
-    };
-}).then(function(data){
+// // Load CSV data asynchronously and process it before rendering the map
+// d3.csv("refugee.csv", function(d){
+//     return {
+//         name: +d.Name,
+//         Number: +d.Number
+//     };
+// }).then(function(data){
 
-    // Load JSON data asynchronously and perform actions once the data is available
-    d3.json("europeUltra.json").then(function(json){
+//     // Load JSON data asynchronously and perform actions once the data is available
+//     d3.json("europeUltra.json").then(function(json){
 
-        // Match the CSV data with the GeoJSON data based on country name
-        for(var i = 0; i < data.length; i++){
+//         // Match the CSV data with the GeoJSON data based on country name
+//         for(var i = 0; i < data.length; i++){
             
-            var dataState = data[i].name;
-            var dataValue = parseFloat(data[i].Number);
+//             var dataState = data[i].name;
+//             var dataValue = parseFloat(data[i].Number);
 
-            for(var j = 0; j < json.features.length; j++){
+//             for(var j = 0; j < json.features.length; j++){
                 
-                var jsonState = json.features[j].properties.name;
+//                 var jsonState = json.features[j].properties.name;
 
-                if(dataState == jsonState){
+//                 if(dataState == jsonState){
 
-                    // Assign unemployment data to the corresponding GeoJSON feature
-                    json.features[j].properties.value = dataValue;
-                    break;
-                }
-            }
-        }
+//                     // Assign unemployment data to the corresponding GeoJSON feature
+//                     json.features[j].properties.value = dataValue;
+//                     break;
+//                 }
+//             }
+//         }
 
-    // Draw GeoJSON features
-    svg.selectAll("path")
-        .data(json.features)
-        .enter()
-        .append("path")
-        .attr("stroke", "dimgray")
-        .attr("fill", "#FFFF00") // Setting a fixed fill color
-        .attr("d", path);
-    }).catch(function(error) {
-        // Handle errors
-        console.log("Error loading GeoJSON:", error);
-        });
-});
+//     // Draw GeoJSON features
+//     svg.selectAll("path")
+//         .data(json.features)
+//         .enter()
+//         .append("path")
+//         .attr("stroke", "dimgray")
+//         .attr("fill", "#FFFF00") // Setting a fixed fill color
+//         .attr("d", path);
+//     }).catch(function(error) {
+//         // Handle errors
+//         console.log("Error loading GeoJSON:", error);
+//         });
+// });
 
 
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //     // Draw GeoJSON features
 //     svg.selectAll("path")
@@ -76,3 +76,92 @@ d3.csv("refugee.csv", function(d){
 // }).catch(function(error) {
 //     // Handle errors
 //     console.log("Error loading GeoJSON:", error);
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var w = 1000;
+var h = 1000;
+
+// Define projection settings
+var projection = d3.geoMercator()
+  .center([0, 25])
+  .scale(400)
+  .translate([w / 3, h]);
+
+var path = d3.geoPath()
+  .projection(projection);
+
+// Start the SVG block
+var svg = d3.select("body")
+  .append("svg")
+  .attr("width", w)
+  .attr("height", h)
+  .attr("class", "img");
+
+// Load CSV data asynchronously
+d3.csv("refugee.csv").then(function(data) {
+  console.log("CSV data:", data); // Log CSV data to inspect it
+  
+  // Load JSON data asynchronously
+  d3.json("europeUltra.json").then(function(json) {
+
+    // Match the CSV data with the GeoJSON data
+    for (var i = 0; i < data.length; i++) {
+      var dataState = data[i].Name;
+      var dataValue = parseInt(data[i]["Number "]); // Remove extra space after "Number"
+      
+      if (isNaN(dataValue)) {
+        console.log("Failed to parse Number for:", dataState);
+        continue; // Skip this iteration if parsing fails
+      }
+
+      for (var j = 0; j < json.features.length; j++) {
+        var jsonState = json.features[j].properties.name;
+
+        if (dataState === jsonState) {
+          console.log("Matched:", dataState, dataValue);
+          json.features[j].properties.value = dataValue;
+          break; // Break the loop once matched
+        }
+      }
+    }
+
+    // Draw GeoJSON features with dynamic fill colors
+    svg.selectAll("path")
+      .data(json.features)
+      .enter()
+      .append("path")
+      .attr("stroke", "dimgray")
+      .attr("fill", function(d) {
+        // Determine color based on value
+        var color = "lightgray"; // Default yellow
+        if (!isNaN(d.properties.value)) {
+          if (d.properties.value < 100000) {
+            color = "yellow";
+          } else if ( d.properties.value < 300000) {
+            color = "orange";
+          } else if (d.properties.value < 500000) {
+            color = "lightcoral";
+          } else if (d.properties.value < 1000000) {
+            color = "tomato";
+          } else {
+            color = "darkred";
+          }
+        } else {
+          color = "lightgray"; // No data available
+        }
+        return color;
+      })
+      .attr("d", path);
+  }).catch(function(error) {
+    // Handle errors
+    console.log("Error loading GeoJSON:", error);
+  });
+}).catch(function(error) {
+  // Handle errors
+  console.log("Error loading CSV:", error);
+});
+
+
+

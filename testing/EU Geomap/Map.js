@@ -17,8 +17,37 @@ var svg = d3.select("body")
     .attr("height", h)
     .attr("class", "img");
 
-// Load and render GeoJSON data
-d3.json("europeUltra.json").then(function (json) {
+
+// Load CSV data asynchronously and process it before rendering the map
+d3.csv("refugee.csv", function(d){
+    return {
+        name: +d.Name,
+        Number: +d.Number
+    };
+}).then(function(data){
+
+    // Load JSON data asynchronously and perform actions once the data is available
+    d3.json("europeUltra.json").then(function(json){
+
+        // Match the CSV data with the GeoJSON data based on country name
+        for(var i = 0; i < data.length; i++){
+            
+            var dataState = data[i].name;
+            var dataValue = parseFloat(data[i].Number);
+
+            for(var j = 0; j < json.features.length; j++){
+                
+                var jsonState = json.features[j].properties.name;
+
+                if(dataState == jsonState){
+
+                    // Assign unemployment data to the corresponding GeoJSON feature
+                    json.features[j].properties.value = dataValue;
+                    break;
+                }
+            }
+        }
+
     // Draw GeoJSON features
     svg.selectAll("path")
         .data(json.features)
@@ -27,10 +56,23 @@ d3.json("europeUltra.json").then(function (json) {
         .attr("stroke", "dimgray")
         .attr("fill", "#FFFF00") // Setting a fixed fill color
         .attr("d", path);
-}).catch(function(error) {
-    // Handle errors
-    console.log("Error loading GeoJSON:", error);
+    }).catch(function(error) {
+        // Handle errors
+        console.log("Error loading GeoJSON:", error);
+        });
 });
 
 
 
+
+//     // Draw GeoJSON features
+//     svg.selectAll("path")
+//         .data(json.features)
+//         .enter()
+//         .append("path")
+//         .attr("stroke", "dimgray")
+//         .attr("fill", "#FFFF00") // Setting a fixed fill color
+//         .attr("d", path);
+// }).catch(function(error) {
+//     // Handle errors
+//     console.log("Error loading GeoJSON:", error);

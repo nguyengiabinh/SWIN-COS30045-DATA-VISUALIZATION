@@ -149,7 +149,7 @@ function lineChart(dataset2) {
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px")
             .style("visibility", "visible")
-            .text(`Date: ${closestPoint.date.toDateString()}\nValue: ${closestPoint.value}`);
+            .html("Date: " + closestPoint.date.toDateString() + "<br/>Value: " + closestPoint.value);
     })
     .on("mouseout", function() {
         svg.selectAll(".circle").remove(); // Hide the tooltip and remove the circle
@@ -287,7 +287,7 @@ function btn2021() {
       .style("left", (event.pageX + 10) + "px")
       .style("top", (event.pageY - 28) + "px")
       .style("visibility", "visible")
-      .text(`Month: ${closestPoint.month}\nValue: ${closestPoint["2021"]}`);
+      .html("Month: " + closestPoint.month + "<br/>Number: " + closestPoint["2021"]);
   })
   .on("mouseout", function() {
     svg.selectAll(".circle").remove(); // Hide the tooltip and remove the circle
@@ -423,7 +423,7 @@ function btn2022() {
       .style("left", (event.pageX + 10) + "px")
       .style("top", (event.pageY - 28) + "px")
       .style("visibility", "visible")
-      .text(`Month: ${closestPoint.month}\nValue: ${closestPoint["2022"]}`);
+      .html("Month: " + closestPoint.month + "<br/>Number: " + closestPoint["2022"]);
   })
   .on("mouseout", function() {
     svg.selectAll(".circle").remove(); // Hide the tooltip and remove the circle
@@ -559,7 +559,7 @@ function btn2023() {
       .style("left", (event.pageX + 10) + "px")
       .style("top", (event.pageY - 28) + "px")
       .style("visibility", "visible")
-      .text(`Month: ${closestPoint.month}\nValue: ${closestPoint["2023"]}`);
+      .html("Month: " + closestPoint.month + "<br/>Number: " + closestPoint["2023"]);
   })
   .on("mouseout", function() {
     svg.selectAll(".circle").remove(); // Hide the tooltip and remove the circle
@@ -697,7 +697,7 @@ function btn2024() {
       .style("left", (event.pageX + 10) + "px")
       .style("top", (event.pageY - 28) + "px")
       .style("visibility", "visible")
-      .text(`Month: ${closestPoint.month}\nValue: ${closestPoint["2024"]}`);
+      .html("Month: " + closestPoint.month + "<br/>Number: " + closestPoint["2024"]);
   })
   .on("mouseout", function() {
     svg.selectAll(".circle").remove(); // Hide the tooltip and remove the circle
@@ -826,7 +826,7 @@ function Reset() {
             .style("left", (event.pageX + 10) + "px")
             .style("top", (event.pageY - 28) + "px")
             .style("visibility", "visible")
-            .text(`Date: ${closestPoint.date.toDateString()}\nValue: ${closestPoint.value}`);
+            .html("Date: " + closestPoint.date.toDateString() + "<br/>Value: " + closestPoint.value);
     })
     .on("mouseout", function() {
         svg.selectAll(".circle").remove(); // Hide the tooltip and remove the circle

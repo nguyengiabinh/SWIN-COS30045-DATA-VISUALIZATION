@@ -1,85 +1,3 @@
-// var w = 1000;
-// var h = 1000;
-
-// // Define projection settings
-// var projection = d3.geoMercator()
-//     .center([0, 25]) // Centering the map
-//     .scale(400) // Adjusting scale to make the map four times bigger
-//     .translate([w / 3, h]);
-
-// var path = d3.geoPath()
-//     .projection(projection);
-
-// // Start the SVG block
-// var svg = d3.select("body")
-//     .append("svg")
-//     .attr("width", w)
-//     .attr("height", h)
-//     .attr("class", "img");
-
-
-// // Load CSV data asynchronously and process it before rendering the map
-// d3.csv("refugee.csv", function(d){
-//     return {
-//         name: +d.Name,
-//         Number: +d.Number
-//     };
-// }).then(function(data){
-
-//     // Load JSON data asynchronously and perform actions once the data is available
-//     d3.json("europeUltra.json").then(function(json){
-
-//         // Match the CSV data with the GeoJSON data based on country name
-//         for(var i = 0; i < data.length; i++){
-            
-//             var dataState = data[i].name;
-//             var dataValue = parseFloat(data[i].Number);
-
-//             for(var j = 0; j < json.features.length; j++){
-                
-//                 var jsonState = json.features[j].properties.name;
-
-//                 if(dataState == jsonState){
-
-//                     // Assign unemployment data to the corresponding GeoJSON feature
-//                     json.features[j].properties.value = dataValue;
-//                     break;
-//                 }
-//             }
-//         }
-
-//     // Draw GeoJSON features
-//     svg.selectAll("path")
-//         .data(json.features)
-//         .enter()
-//         .append("path")
-//         .attr("stroke", "dimgray")
-//         .attr("fill", "#FFFF00") // Setting a fixed fill color
-//         .attr("d", path);
-//     }).catch(function(error) {
-//         // Handle errors
-//         console.log("Error loading GeoJSON:", error);
-//         });
-// });
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//     // Draw GeoJSON features
-//     svg.selectAll("path")
-//         .data(json.features)
-//         .enter()
-//         .append("path")
-//         .attr("stroke", "dimgray")
-//         .attr("fill", "#FFFF00") // Setting a fixed fill color
-//         .attr("d", path);
-// }).catch(function(error) {
-//     // Handle errors
-//     console.log("Error loading GeoJSON:", error);
-
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 var w = 1000;
 var h = 1000;
 
@@ -111,6 +29,18 @@ d3.csv("refugee.csv").then(function(data) {
   
   // Load JSON data asynchronously
   d3.json("europeUltra.json").then(function(json) {
+
+    // Add a tooltip div for displaying data points
+    var tooltip = d3.select("body")
+        .append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "1px solid black")
+        .style("padding", "5px")
+        .text("Tooltip");
 
     // Match the CSV data with the GeoJSON data
     for (var i = 0; i < data.length; i++) {
@@ -166,21 +96,23 @@ d3.csv("refugee.csv").then(function(data) {
         tooltip.transition()
             .duration(200)
             .style("opacity", .9);
-        tooltip.html(d.properties.name + "<br/>Number: " + d.properties.value)
-            .style("left", (event.pageX) + "px")
-            .style("top", (event.pageY - 28) + "px");
     
         // Change appearance on hover
         d3.select(this)
             .attr("stroke", "black")
             .attr("stroke-width", 2)
             .attr("fill", "lightblue");
-    })
+    
+        // Update the tooltip position and value
+        var numberValue = d.properties.value !== undefined ? d.properties.value : "Unavailable";
+        tooltip
+            .style("left", (event.pageX + 10) + "px")
+            .style("top", (event.pageY - 28) + "px")
+            .style("visibility", "visible")
+            .html("Name: " + d.properties.name + "<br/>Number: " + numberValue);
+       })
       .on("mouseout", function(d) {
-        // Hide tooltip
-        tooltip.transition()
-          .duration(500)
-          .style("opacity", 0);
+        tooltip.style("visibility", "hidden");
         
         // Revert appearance on mouseout
         d3.select(this)

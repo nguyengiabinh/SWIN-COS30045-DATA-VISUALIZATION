@@ -99,6 +99,12 @@ var svg = d3.select("body")
   .attr("height", h)
   .attr("class", "img");
 
+// Create a tooltip div
+var tooltip = d3.select("body")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
 // Load CSV data asynchronously
 d3.csv("refugee.csv").then(function(data) {
   console.log("CSV data:", data); // Log CSV data to inspect it
@@ -135,11 +141,11 @@ d3.csv("refugee.csv").then(function(data) {
       .attr("stroke", "dimgray")
       .attr("fill", function(d) {
         // Determine color based on value
-        var color = "lightgray"; // Default yellow
+        var color = "#FFFF00"; // Default yellow
         if (!isNaN(d.properties.value)) {
           if (d.properties.value < 100000) {
             color = "yellow";
-          } else if ( d.properties.value < 300000) {
+          } else if (d.properties.value < 300000) {
             color = "orange";
           } else if (d.properties.value < 500000) {
             color = "lightcoral";
@@ -153,7 +159,54 @@ d3.csv("refugee.csv").then(function(data) {
         }
         return color;
       })
-      .attr("d", path);
+      .attr("d", path)
+      .on("mouseover", function(event, d) {
+        console.log(d); // Log the data associated with the hovered element
+        // Show tooltip with country name and number value
+        tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+        tooltip.html(d.properties.name + "<br/>Number: " + d.properties.value)
+            .style("left", (event.pageX) + "px")
+            .style("top", (event.pageY - 28) + "px");
+    
+        // Change appearance on hover
+        d3.select(this)
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+            .attr("fill", "lightblue");
+    })
+      .on("mouseout", function(d) {
+        // Hide tooltip
+        tooltip.transition()
+          .duration(500)
+          .style("opacity", 0);
+        
+        // Revert appearance on mouseout
+        d3.select(this)
+          .attr("stroke", "dimgray")
+          .attr("stroke-width", 1)
+          .attr("fill", function(d) {
+            // Determine color based on value
+            var color = "#FFFF00"; // Default yellow
+            if (!isNaN(d.properties.value)) {
+              if (d.properties.value < 100000) {
+                color = "yellow";
+              } else if (d.properties.value < 300000) {
+                color = "orange";
+              } else if (d.properties.value < 500000) {
+                color = "lightcoral";
+              } else if (d.properties.value < 1000000) {
+                color = "tomato";
+              } else {
+                color = "darkred";
+              }
+            } else {
+              color = "lightgray"; // No data available
+            }
+            return color;
+          });
+      });
   }).catch(function(error) {
     // Handle errors
     console.log("Error loading GeoJSON:", error);
@@ -162,6 +215,8 @@ d3.csv("refugee.csv").then(function(data) {
   // Handle errors
   console.log("Error loading CSV:", error);
 });
+
+
 
 
 

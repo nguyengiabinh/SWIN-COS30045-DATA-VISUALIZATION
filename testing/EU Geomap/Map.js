@@ -4,8 +4,8 @@ var h = 1000;
 // Define projection settings
 var projection = d3.geoMercator()
     .center([0, 25]) // Centering the map
-    .scale(720) // Adjusting scale to make the map four times bigger
-    .translate([w / 2.5, h]);
+    .scale(400) // Adjusting scale to make the map four times bigger
+    .translate([w / 3, h]);
 
 var path = d3.geoPath()
     .projection(projection);
@@ -18,7 +18,7 @@ var svg = d3.select("body")
     .attr("class", "img");
 
 // Load and render GeoJSON data
-d3.json("europe_.geojson").then(function (json) {
+d3.json("europeUltra.json").then(function (json) {
     // Draw GeoJSON features
     svg.selectAll("path")
         .data(json.features)

@@ -169,6 +169,21 @@ last modified: 18/3/2024
       transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
  
     }
+
+
+
+    .img {
+      display: block;
+      margin: 0 auto;
+      border: 1px solid black;
+      overflow: hidden;
+    }
+  
+    .line {
+        fill:none;
+        stroke: slategrey;
+        stroke-width: 0.5;
+    }
  
  
  

@@ -11,7 +11,7 @@ var containerHeight = mapContainer.node().getBoundingClientRect().height;
 // Adjust projection settings based on container dimensions
 var scale = containerWidth / 2.1; // Adjust the scale factor as needed
 var translateX = containerWidth / 2.8;
-var translateY = containerHeight / 1.7; // Adjust the vertical translation factor as needed
+var translateY = containerHeight / 1.8; // Adjust the vertical translation factor as needed
 
 projection
   .center([0, 55]) // Adjust the center coordinates (longitude, latitude)
@@ -82,18 +82,18 @@ d3.csv("refugee.csv").then(function(data) {
       .attr("stroke", "dimgray")
       .attr("fill", function(d) {
         // Determine color based on value
-        var color = "lightgray"; // Default yellow
+        var color = "lightgray"; 
         if (!isNaN(d.properties.value)) {
           if (d.properties.value < 100000) {
-            color = "#ADD8E6";
+            color = "#CDF8FF";
           } else if (d.properties.value < 300000) {
             color = "#87CEEB";
           } else if (d.properties.value < 500000) {
-            color = "#0000CD";
-          } else if (d.properties.value < 1000000) {
             color = "#4169E1";
+          } else if (d.properties.value < 1000000) {
+            color = "#0000CD";
           } else {
-            color = "#005180";
+            color = "#005180"; 
           }
         } else {
           color = "lightgray"; // No data available
@@ -131,18 +131,18 @@ d3.csv("refugee.csv").then(function(data) {
           .attr("stroke-width", 1)
           .attr("fill", function(d) {
             // Determine color based on value
-            var color = "#FFFF00"; // Default yellow
+            var color = "lightgray"; 
             if (!isNaN(d.properties.value)) {
               if (d.properties.value < 100000) {
-                color = "#ADD8E6";
+                color = "#CDF8FF";
               } else if (d.properties.value < 300000) {
                 color = "#87CEEB";
               } else if (d.properties.value < 500000) {
-                color = " #0000CD";
-              } else if (d.properties.value < 1000000) {
                 color = "#4169E1";
+              } else if (d.properties.value < 1000000) {
+                color = "#0000CD";
               } else {
-                color = "#005180";
+                color = "#005180"; 
               }
             } else {
               color = "lightgray"; // No data available
@@ -150,6 +150,43 @@ d3.csv("refugee.csv").then(function(data) {
             return color;
           });
       });
+
+    // Create a legend container
+    var legendContainer = d3.select(".map-container")
+      .append("div")
+      .attr("class", "legend-container")
+      .style("position", "absolute")
+      .style("top", "20px")
+      .style("left", "100px");
+
+    // Add a legend title
+    legendContainer.append("div")
+      .attr("class", "legend-title")
+      .text("Number of Refugees");
+
+    // Define legend items
+    var legendItems = [
+      { label: "< 100,000", color: "#CDF8FF" },
+      { label: "100,000 - 300,000", color: "#87CEEB" },
+      { label: "300,000 - 500,000", color: "#4169E1" },
+      { label: "500,000 - 1,000,000", color: "#0000CD" },
+      { label: "> 1,000,000", color: "#005180" },
+      { label: "Data Unavailable", color: "lightgray" }
+    ];
+
+    // Create legend elements
+    var legend = legendContainer.selectAll(".legend-item")
+      .data(legendItems)
+      .enter()
+      .append("div")
+      .attr("class", "legend-item");
+
+    legend.append("div")
+      .attr("class", "legend-color")
+      .style("background-color", function(d) { return d.color; });
+
+    legend.append("span")
+      .text(function(d) { return d.label; });
   }).catch(function(error) {
     // Handle errors
     console.log("Error loading GeoJSON:", error);

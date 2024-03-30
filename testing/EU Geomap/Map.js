@@ -15,7 +15,7 @@ var svg = d3.select("body")
   .append("svg")
   .attr("width", w)
   .attr("height", h)
-  .attr("class", "img");
+  .attr("class", "img1");
 
 // Create a tooltip div
 var tooltip = d3.select("body")
@@ -71,18 +71,18 @@ d3.csv("refugee.csv").then(function(data) {
       .attr("stroke", "dimgray")
       .attr("fill", function(d) {
         // Determine color based on value
-        var color = "#FFFF00"; // Default yellow
+        var color = "lightgray"; // Default yellow
         if (!isNaN(d.properties.value)) {
           if (d.properties.value < 100000) {
-            color = "yellow";
+            color = "#ADD8E6";
           } else if (d.properties.value < 300000) {
-            color = "orange";
+            color = "#87CEEB";
           } else if (d.properties.value < 500000) {
-            color = "lightcoral";
+            color = "#0000CD";
           } else if (d.properties.value < 1000000) {
-            color = "tomato";
+            color = "#4169E1";
           } else {
-            color = "darkred";
+            color = "#005180";
           }
         } else {
           color = "lightgray"; // No data available
@@ -101,7 +101,7 @@ d3.csv("refugee.csv").then(function(data) {
         d3.select(this)
             .attr("stroke", "black")
             .attr("stroke-width", 2)
-            .attr("fill", "lightblue");
+            .attr("fill", "tomato");
     
         // Update the tooltip position and value
         var numberValue = d.properties.value !== undefined ? d.properties.value : "Unavailable";
@@ -123,15 +123,15 @@ d3.csv("refugee.csv").then(function(data) {
             var color = "#FFFF00"; // Default yellow
             if (!isNaN(d.properties.value)) {
               if (d.properties.value < 100000) {
-                color = "yellow";
+                color = "#ADD8E6";
               } else if (d.properties.value < 300000) {
-                color = "orange";
+                color = "#87CEEB";
               } else if (d.properties.value < 500000) {
-                color = "lightcoral";
+                color = " #0000CD";
               } else if (d.properties.value < 1000000) {
-                color = "tomato";
+                color = "#4169E1";
               } else {
-                color = "darkred";
+                color = "#005180";
               }
             } else {
               color = "lightgray"; // No data available

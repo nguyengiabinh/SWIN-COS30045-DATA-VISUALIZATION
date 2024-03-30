@@ -190,16 +190,16 @@ html {
 
     /* template settings for all buttons on the site */
     .btn {
-      font-size: 100%;
+      font-size: 90%;
       width: 100%;
-      background: #000;
+      background: #4169E1;
       color: white;
       text-decoration: none;
       border: 2px solid transparent;
       font-weight: bold;
       text-align: center;
-      padding: 14px 31px;
-      border-radius: 29px;
+      padding: 10px 25px;
+      border-radius: 5px;
       transition: .5s;
     }
 
@@ -331,7 +331,6 @@ html {
 
   /* modification for overal button style */
   #index .modi {
-    width: 15%;
     margin-top: 2%;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }

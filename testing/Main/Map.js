@@ -1,24 +1,32 @@
-var w = 600;
-var h = 500;
-
 // Define projection settings
-var projection = d3.geoMercator()
-  .center([0, 25])
-  .scale(350)
-  .translate([w / 3.5, h + 50]);
-
-var path = d3.geoPath()
-  .projection(projection);
+var projection = d3.geoMercator();
 
 // Select the div with the class "map-container"
 var mapContainer = d3.select(".map-container");
 
+// Get the width and height of the map container
+var containerWidth = mapContainer.node().getBoundingClientRect().width;
+var containerHeight = mapContainer.node().getBoundingClientRect().height;
+
+// Adjust projection settings based on container dimensions
+var scale = containerWidth / 2.1; // Adjust the scale factor as needed
+var translateX = containerWidth / 2.8;
+var translateY = containerHeight / 1.7; // Adjust the vertical translation factor as needed
+
+projection
+  .center([0, 55]) // Adjust the center coordinates (longitude, latitude)
+  .scale(scale)
+  .translate([translateX, translateY]);
+
 // Append the SVG element to the map container div
 var svg = mapContainer
   .append("svg")
-  .attr("width", w)
-  .attr("height", h)
-  .attr("class", "img1");
+  .attr("class", "img1")
+  .attr("viewBox", `0 0 ${containerWidth} ${containerHeight}`); // Use viewBox instead of fixed width and height
+
+// Define path projection
+var path = d3.geoPath()
+  .projection(projection);
 
 // Create a tooltip div
 var tooltip = d3.select("body")

@@ -27,7 +27,7 @@ last modified: 18/3/2024
   /* remove body margin */
   body,
   html {
-    margin: 0px;
+    margin: auto 0px;
   }
  
   /* Style for all heading tags */
@@ -116,7 +116,7 @@ last modified: 18/3/2024
   /* remove body margin */
   body,
   html {
-    margin: 0px;
+    margin: auto 0px;
   }
  
   /* Style for all heading tags */
@@ -285,9 +285,10 @@ last modified: 18/3/2024
   /* style for main index content */
   #index .section_white {
     background-color: #fff;
+    display: block;
     float: left;
     padding: 2.5%;
-    margin: 0% 5% 5% 5%;
+    margin: 0% 5%;
     box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px,
       rgba(0, 0, 0, 0.22) 0px 15px 12px;
   }
@@ -341,4 +342,26 @@ last modified: 18/3/2024
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   }
 
+  .map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Aspect ratio 16:9 (100/56.25 = 1.778) */
   }
+  
+  .map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* Aspect ratio 16:9 (100/56.25 = 1.778) */
+  }
+  
+  .map-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+}

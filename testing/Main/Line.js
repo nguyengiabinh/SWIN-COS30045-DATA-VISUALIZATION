@@ -18,6 +18,7 @@ var h = containerHeight / 2; // Adjust the vertical translation factor as needed
 // Append the SVG element to the map container div
 var svgline = lineContainer
   .append("svg")
+  .attr("preserveAspectRatio", "xMidYMid meet")
   .attr("class", "img1")
   .attr("width", w)
   .attr("height", h) // Use viewBox instead of fixed width and height

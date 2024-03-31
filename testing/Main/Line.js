@@ -68,7 +68,8 @@ function lineChart(dataset2) {
         .range([h - padding, padding]);
 
     var xAxis = d3.axisBottom()
-        .scale(xScale);
+        .scale(xScale)
+        .ticks(4);
 
     var yAxis = d3.axisRight()
         .scale(yScale);
@@ -204,7 +205,8 @@ function btn2021() {
 
     // Create a Left-hand side y axis
     var yAxis = d3.axisRight()
-        .scale(yScale);
+        .scale(yScale)
+        .ticks(4);
 
     // Draw horizontal gridlines
     svgline.selectAll(".hline")
@@ -365,7 +367,8 @@ function btn2022() {
 
     // Create a Left-hand side y axis
     var yAxis = d3.axisRight()
-        .scale(yScale);
+        .scale(yScale)
+        .ticks(4);
 
     // Draw horizontal gridlines
     svgline.selectAll(".hline")
@@ -525,7 +528,8 @@ function btn2023() {
 
     // Create a Left-hand side y axis
     var yAxis = d3.axisRight()
-        .scale(yScale);
+        .scale(yScale)
+        .ticks(4);
 
     // Draw horizontal gridlines
     svgline.selectAll(".hline")
@@ -684,7 +688,8 @@ function btn2024() {
 
     // Create a Left-hand side y axis
     var yAxis = d3.axisRight()
-        .scale(yScale);
+        .scale(yScale)
+        .ticks(4);
 
     // Draw horizontal gridlines
     svgline.selectAll(".hline")
@@ -832,17 +837,22 @@ function Reset() {
     // Set the x and y scale.
     var xScale = d3.scaleTime()
         .domain([
-            d3.min(dataset2, function(d) { return d.date; }),
-            d3.max(dataset2, function(d) { return d.date; })
+            d3.min(dataset2, function(d) { 
+                return d.date; 
+            }),
+            d3.max(dataset2, function(d) { 
+                return d.date; 
+            })
         ])
-        .range([padding, w - padding]);
+        .range([padding, w - padding]); // Adjusted range for xScale
 
     var yScale = d3.scaleLinear()
         .domain([0, d3.max(dataset2, function(d) { return d.value; })])
         .range([h - padding, padding]);
 
     var xAxis = d3.axisBottom()
-        .scale(xScale);
+        .scale(xScale)
+        .ticks(4);
 
     var yAxis = d3.axisRight()
         .scale(yScale);
@@ -898,17 +908,17 @@ function Reset() {
         .style("stroke", "#CC0000")
         .style("stroke-width", 2.5);
 
-      // Add a tooltip div for displaying data points
+    // Add a tooltip div for displaying data points
     var tooltip = d3.select("body")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("position", "absolute")
-    .style("z-index", "10")
-    .style("visibility", "hidden")
-    .style("background-color", "white")
-    .style("border", "1px solid black")
-    .style("padding", "5px")
-    .text("Tooltip");
+        .append("div")
+        .attr("class", "tooltip")
+        .style("position", "absolute")
+        .style("z-index", "10")
+        .style("visibility", "hidden")
+        .style("background-color", "white")
+        .style("border", "1px solid black")
+        .style("padding", "5px")
+        .text("Tooltip");
 
     // Add event listener for mousemove
     svgline.on("mousemove", function(event) {
